@@ -1,0 +1,82 @@
+---
+title: "Milestone 3"
+author: "Saul Soto"
+date: "2/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+library(spotifyr)
+library(lubridate)
+library(readxl)
+library(janitor)
+Sys.setenv(SPOTIFY_CLIENT_ID = '1ebacb60ef2044ccadab18602f7c0b8f')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '6fb54464f8dc45c88387a4fadde775db')
+
+access_token <- get_spotify_access_token()
+
+# So it turns out that I am completely unable to get any data from Germany or
+# the UK because I have a USA Spotify account. What I will do for this milestone
+# is get the spotify top 200 tracks for the past 3 Februarys (Spotify only has
+# data up until 2017) and store them in their own dataframe (UK and Germany).
+# Since the dataframes do not give me details about the genre or any analysis,
+# that means I'll have to do it individually for every song, which is a little
+# absurd given the time for this project. My plan is to hopefully get Spotify to
+# give me access to the global market, if not I will narrow my project.
+
+top200_2020_uk <- read.csv("raw-data/regional-gb-daily-latest.csv", skip = 1) %>%
+  clean_names() %>%
+  select(1:3) 
+
+top200_2019_uk <- read.csv("raw-data/regional-gb-daily-2019-02-28.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+top_200_2018_uk <- read.csv("raw-data/regional-gb-daily-2018-02-28.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+top_200_2017_uk <- read.csv("raw-data/regional-gb-daily-2017-02-28.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+# Here is the Germany data that I will hopefully end up using for my final
+# project. I do have some other ideas, such as compare the analysis of the EDM
+# audio tracks that do make it to the US top 200 on Spotify and compare it to
+# the analysis of whatever genres dominate the US charts.
+
+top_200_2020_ger <- read.csv("raw-data-ger/regional-de-daily-latest.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+top_200_2019_ger <- read.csv("raw-data-ger/regional-de-daily-2019-02-28.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+top_200_2018_ger <- read.csv("raw-data-ger/regional-de-daily-2018-02-28.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+top_200_2017_ger <- read.csv("raw-data-ger/regional-de-daily-2017-02-28.csv") %>%
+  clean_names() %>%
+  select(1:3) 
+
+# Alternatively, I can also try to see which songs match, and get the analytics
+# of the tracks that match and what position they rank in in the UK and Ger
+# markets retrospectively. Of course, this can only be possible if the songs are
+# also available in the US market.
+
+```
+# About the Project
+
+## Music genres in the US, UK, and Germany
+It is no doubt that hip hop and pop dominates the US charts, most likely due to the culture that emerged in the late 90s and took off in the 2000s. Each country has a genre or genres that dominate their charts and are representative of its culture to some degree. For example, Germany was tied to mostly EDM until fairly recently. Although some aspect of EDM culture is still present when observing the top tracks, according to Statistica, Pop and Rock are the most popular genre. The UK also had a similar story, being tied to the emergence of Eurodance in the 90s which sparked an era of EDM music that continued to evolve; from UK Garage to Dubstep for example. However, unlike Germany, most of these popular genres were "underground," being played at now-closed nightclubs that many ravers enjoyed attending. Similar to the US, pop and hip hop were the most popular genres in the UK starting in the late 90s. 
+
+## What is the focus of this project?
+This project aims to compare two countries that had a seemingly strong EDM following in the 90s and early 2000s, the United Kingdom and Germany, and see if the chart rankings match the expected results (see above). If what was mentioned above is true, there should be significantly more EDM songs in the Germany charts from 2000-2010 compared to the UK. It will also be useful to see how the genres that dominated the charts have changed over the first decade of this millenia. 
+
+## What are the plans for this project?
+So far, I've only collected the top 200 tracks from Spotify in the 
