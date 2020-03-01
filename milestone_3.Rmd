@@ -16,10 +16,9 @@ Sys.setenv(SPOTIFY_CLIENT_SECRET = '6fb54464f8dc45c88387a4fadde775db')
 
 access_token <- get_spotify_access_token()
 
-get_my_top_artists_or_tracks(type = 'artists', time_range = 'long_term', limit = 5) %>%
-    select(name, genres) %>% 
-    rowwise %>% 
-    mutate(genres = paste(genres, collapse = ', ')) %>% 
-    ungroup %>% 
+beatles <- get_artist_audio_features('the beatles')
+beatles %>% 
+    count(key_mode, sort = TRUE) %>% 
+    head(5) %>% 
     kable()
 ```
