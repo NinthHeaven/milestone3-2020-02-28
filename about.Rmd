@@ -27,48 +27,64 @@ access_token <- get_spotify_access_token()
 # absurd given the time for this project. My plan is to hopefully get Spotify to
 # give me access to the global market, if not I will narrow my project.
 
-top200_2020_uk <- read.csv("raw-data/regional-gb-daily-latest.csv", skip = 1) %>%
+top_200_2020_uk <- read.csv("raw-data/regional-gb-daily-latest.csv", skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2020"))
 
-top200_2019_uk <- read.csv("raw-data/regional-gb-daily-2019-02-28.csv") %>%
+top_200_2019_uk <- read.csv("raw-data/regional-gb-daily-2019-02-28.csv", skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2019"))
 
-top_200_2018_uk <- read.csv("raw-data/regional-gb-daily-2018-02-28.csv") %>%
+top_200_2018_uk <- read.csv("raw-data/regional-gb-daily-2018-02-28.csv", skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2018"))
 
-top_200_2017_uk <- read.csv("raw-data/regional-gb-daily-2017-02-28.csv") %>%
+top_200_2017_uk <- read.csv("raw-data/regional-gb-daily-2017-02-28.csv", skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2017"))
 
 # Here is the Germany data that I will hopefully end up using for my final
 # project. I do have some other ideas, such as compare the analysis of the EDM
 # audio tracks that do make it to the US top 200 on Spotify and compare it to
 # the analysis of whatever genres dominate the US charts.
 
-top_200_2020_ger <- read.csv("raw-data-ger/regional-de-daily-latest.csv") %>%
+top_200_2020_ger <- read.csv("raw-data-ger/regional-de-daily-latest.csv", skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2020"))
 
-top_200_2019_ger <- read.csv("raw-data-ger/regional-de-daily-2019-02-28.csv") %>%
+top_200_2019_ger <- read.csv("raw-data-ger/regional-de-daily-2019-02-28.csv",
+                             skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2019"))
 
-top_200_2018_ger <- read.csv("raw-data-ger/regional-de-daily-2018-02-28.csv") %>%
+top_200_2018_ger <- read.csv("raw-data-ger/regional-de-daily-2018-02-28.csv", 
+                             skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2018"))
 
-top_200_2017_ger <- read.csv("raw-data-ger/regional-de-daily-2017-02-28.csv") %>%
+top_200_2017_ger <- read.csv("raw-data-ger/regional-de-daily-2017-02-28.csv",
+                             skip = 1) %>%
   clean_names() %>%
-  select(1:3) 
+  select(1:3) %>%
+  mutate(year = rep("2017"))
 
 # Alternatively, I can also try to see which songs match, and get the analytics
 # of the tracks that match and what position they rank in in the UK and Ger
 # markets retrospectively. Of course, this can only be possible if the songs are
-# also available in the US market.
+# also available in the US market. I can also just do what I originally wanted
+# to with the 2000-2010 data and just focus on the data I've collected just now.
 
+top_uk_total <- rbind(top_200_2020_uk, top_200_2019_uk, 
+                    top_200_2018_uk, top_200_2017_uk)
+total_ger_total <- rbind(top_200_2020_ger, top_200_2019_ger,
+                         top_200_2018_ger, top_200_2017_ger)
 ```
 # About the Project
 
@@ -79,4 +95,12 @@ It is no doubt that hip hop and pop dominates the US charts, most likely due to 
 This project aims to compare two countries that had a seemingly strong EDM following in the 90s and early 2000s, the United Kingdom and Germany, and see if the chart rankings match the expected results (see above). If what was mentioned above is true, there should be significantly more EDM songs in the Germany charts from 2000-2010 compared to the UK. It will also be useful to see how the genres that dominated the charts have changed over the first decade of this millenia. 
 
 ## What are the plans for this project?
-So far, I've only collected the top 200 tracks from Spotify in the 
+So far, I've only collected the top 200 tracks from Spotify in the past 3 years (February 2017-2020) in the UK and Germany. I was hoping to have more organized data, but it turns out that Spotify will not let me access the UK or Germany markets because I have a US account. This creates a huge problem for the project, as not being able to access those markets will make it extremely hard for me to gather enough data to show any interesting trends. I would have to manually have to get every analytics for every song on the list (which would be 1600 different observations), and trust me, I did something similar over the summer during my own free time and that was extremely time consuming. I will bullet point next steps below:
+
+* Find out if Spotify will allow me to access the global markets so I can analyze the genre of the songs on the charts.
+* Download the Billboard Top 100 songs data from online from 2000-2010 for both countries.
+* Use either Spotify or discogs (if Spotify does not work) to find the genre of the songs in the charts, and use that data to graph percentages of the genres that make up the charts.
+* Graph some interesting trends I may find.
+
+## Where can I find your repo?
+https://github.com/NinthHeaven/milestone3-2020-02-28
